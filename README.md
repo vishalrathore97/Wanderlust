@@ -1,2 +1,1 @@
-# Wanderlust
-Wanderlust Travelling app
+This is a small Traveling app developed in MERN Stack

@@ -1,0 +1,2397 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for src\model\setupUser.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../prettify.css" />
+    <link rel="stylesheet" href="../../base.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class='wrapper'>
+  <div class='pad1'>
+    <h1>
+      <a href="../../index.html">all files</a> / <a href="index.html">src/model/</a> setupUser.js
+    </h1>
+    <div class='clearfix'>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">28.57% </span>
+        <span class="quiet">Statements</span>
+        <span class='fraction'>6/21</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">0% </span>
+        <span class="quiet">Branches</span>
+        <span class='fraction'>0/2</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">100% </span>
+        <span class="quiet">Functions</span>
+        <span class='fraction'>0/0</span>
+      </div>
+      <div class='fl pad1y space-right2'>
+        <span class="strong">30% </span>
+        <span class="quiet">Lines</span>
+        <span class='fraction'>6/20</span>
+      </div>
+    </div>
+  </div>
+  <div class='status-line low'></div>
+<pre><table class="coverage">
+<tr><td class="line-count quiet">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+190
+191
+192
+193
+194
+195
+196
+197
+198
+199
+200
+201
+202
+203
+204
+205
+206
+207
+208
+209
+210
+211
+212
+213
+214
+215
+216
+217
+218
+219
+220
+221
+222
+223
+224
+225
+226
+227
+228
+229
+230
+231
+232
+233
+234
+235
+236
+237
+238
+239
+240
+241
+242
+243
+244
+245
+246
+247
+248
+249
+250
+251
+252
+253
+254
+255
+256
+257
+258
+259
+260
+261
+262
+263
+264
+265
+266
+267
+268
+269
+270
+271
+272
+273
+274
+275
+276
+277
+278
+279
+280
+281
+282
+283
+284
+285
+286
+287
+288
+289
+290
+291
+292
+293
+294
+295
+296
+297
+298
+299
+300
+301
+302
+303
+304
+305
+306
+307
+308
+309
+310
+311
+312
+313
+314
+315
+316
+317
+318
+319
+320
+321
+322
+323
+324
+325
+326
+327
+328
+329
+330
+331
+332
+333
+334
+335
+336
+337
+338
+339
+340
+341
+342
+343
+344
+345
+346
+347
+348
+349
+350
+351
+352
+353
+354
+355
+356
+357
+358
+359
+360
+361
+362
+363
+364
+365
+366
+367
+368
+369
+370
+371
+372
+373
+374
+375
+376
+377
+378
+379
+380
+381
+382
+383
+384
+385
+386
+387
+388
+389
+390
+391
+392
+393
+394
+395
+396
+397
+398
+399
+400
+401
+402
+403
+404
+405
+406
+407
+408
+409
+410
+411
+412
+413
+414
+415
+416
+417
+418
+419
+420
+421
+422
+423
+424
+425
+426
+427
+428
+429
+430
+431
+432
+433
+434
+435
+436
+437
+438
+439
+440
+441
+442
+443
+444
+445
+446
+447
+448
+449
+450
+451
+452
+453
+454
+455
+456
+457
+458
+459
+460
+461
+462
+463
+464
+465
+466
+467
+468
+469
+470
+471
+472
+473
+474
+475
+476
+477
+478
+479
+480
+481
+482
+483
+484
+485
+486
+487
+488
+489
+490
+491
+492
+493
+494
+495
+496
+497
+498
+499
+500
+501
+502
+503
+504
+505
+506
+507
+508
+509
+510
+511
+512
+513
+514
+515
+516
+517
+518
+519
+520
+521
+522
+523
+524
+525
+526
+527
+528
+529
+530
+531
+532
+533
+534
+535
+536
+537
+538
+539
+540
+541
+542
+543
+544
+545
+546
+547
+548
+549
+550
+551
+552
+553
+554
+555
+556
+557
+558
+559
+560
+561
+562
+563
+564
+565
+566
+567
+568
+569
+570
+571
+572
+573
+574
+575
+576
+577
+578
+579
+580
+581
+582
+583
+584
+585
+586
+587
+588
+589
+590
+591
+592
+593
+594
+595
+596
+597
+598
+599
+600
+601
+602
+603
+604
+605
+606
+607
+608
+609
+610
+611
+612
+613
+614
+615
+616
+617
+618
+619
+620
+621
+622
+623
+624
+625
+626
+627
+628
+629
+630
+631
+632
+633
+634
+635
+636
+637
+638
+639
+640
+641
+642
+643
+644
+645
+646
+647
+648
+649
+650
+651
+652
+653
+654
+655
+656
+657
+658
+659
+660
+661
+662
+663
+664
+665
+666
+667
+668
+669
+670
+671
+672
+673
+674
+675
+676
+677
+678
+679
+680
+681
+682
+683
+684
+685
+686
+687
+688
+689
+690
+691
+692
+693
+694
+695
+696
+697
+698
+699
+700
+701
+702
+703
+704
+705
+706
+707
+708
+709
+710
+711
+712
+713
+714
+715
+716
+717
+718
+719
+720
+721
+722
+723
+724
+725
+726
+727
+728
+729
+730
+731
+732
+733
+734
+735
+736
+737
+738
+739
+740
+741
+742
+743
+744
+745
+746
+747
+748
+749
+750
+751
+752
+753
+754
+755
+756
+757
+758
+759
+760
+761
+762
+763
+764
+765
+766
+767
+768
+769
+770
+771
+772
+773
+774
+775
+776
+777</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">const conn = require("../utilities/connections")
+&nbsp;
+&nbsp;
+let userData = [
+    { userId: "U1001", name: "abc", emailId: "abc@gmail.com", contactNo: 9098765432, password: "Abc@1234", bookings: ["B1001", "B1002"] },
+    { userId: "U1002", name: "def", emailId: "def@gmail.com", contactNo: 6234567890, password: "Def@1234", bookings: ["B1003"] }
+]
+&nbsp;
+let bookingData = [
+    {bookingId:"B1001",userId:"U1001",destId:"D1001",destinationName:"A Week in Greece: Athens, Mykonos &amp; Santorini",checkInDate:"2018-12-09",checkOutDate:"2018-12-16",noOfPersons:2 ,totalCharges:5998,timeStamp:new Date().getTime().toString()},
+    {bookingId:"B1002",userId:"U1001",destId:"D1002",destinationName:"Romantic Europe: Paris, Venice &amp; Vienna",checkInDate:"2019-1-10",checkOutDate:"2019-1-24",noOfPersons:1 ,totalCharges:4549,timeStamp:new Date().getTime().toString()},
+    {bookingId:"B1003",userId:"U1002",destId:"D1002",destinationName:"Romantic Europe: Paris, Venice &amp; Vienna",checkInDate:"2019-1-10",checkOutDate:"2019-1-24",noOfPersons:1 ,totalCharges:4549,timeStamp:new Date().getTime().toString()}
+]
+&nbsp;
+let destinations = [
+    {
+        "destinationId" : "D1001",
+        "continent":"Europe",
+        "imageUrl":"/assets/geece.jpg",
+        "name" : "A Week in Greece: Athens, Mykonos &amp; Santorini",
+        "details" : {
+            "about" : "Watch the setting sun from the hilltops of Greece’s most famous islands.Experience ancient history and open-air museums in the capital of Athens. Then, the quintessential, beautiful Greek islands you’ve been dreaming of come to life on the isles of Mykonos and Santorini.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Athens.",
+                        "restDaysSightSeeing":[
+                                                "Santorini",
+                                                "Acropolis", 
+                                                "Parthenon", 
+                                                "Temple of Apollo", 
+                                                "Ruins of Olympia", 
+                                                "Ancient Theater of Epidaurus"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "7 nights in handpicked hotels", 
+                    "7 breakfasts", 
+                    "3 dinners with beer or wine", 
+                    "3 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Greece",
+                    "Athens",
+                    "Mykonos",
+                    "Santorini",
+                    "Acropolis", 
+                    "Parthenon", 
+                    "Temple of Apollo", 
+                    "Ruins of Olympia", 
+                    "Ancient Theater of Epidaurus", 
+                    "Corinth Canal photo stop"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you will walk for about 2 hours daily across uneven terrain, including paved roads and unpaved trails, with some hills and stairs."
+                ]
+            }
+        },
+        "noOfNights" : 7.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 2499.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1002",
+        "continent":"Europe",
+        "imageUrl":"/assets/romantic.jpg",
+        "name" : "Romantic Europe: Paris, Venice &amp; Vienna",
+        "details" : {
+            "about" : "Get swept away by the beauty of Europe’s most romantic cities.Journey through the dazzling imperial capitals of France, Italy, Slovenia, and Austria, soaking up each destination’s unique culture along the way. Sip coffee in charming cafes, spend your days exploring the grand boulevards or admiring sparkling canals, and watch each city’s skyline light up every evening.",
+            "itinerary" : {
+                 "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Paris.",
+                        "restDaysSightSeeing":[
+                                                "Vienna",
+                                                "Eiffel Tower photo stop", 
+                                                "The Grand Canal", 
+                                                "St. Mark’s Square", 
+                                                "Ljubljana’s Prešeren Square", 
+                                                "Graz’s Old Town"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "10 nights in handpicked hotels", 
+                    "10 breakfasts", 
+                    "4 dinners with beer or wine", 
+                    "4 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Paris",
+                    "Venice",
+                    "Vienna",
+                    "Eiffel Tower photo stop", 
+                    "The Grand Canal", 
+                    "St. Mark’s Square", 
+                    "Ljubljana’s Prešeren Square", 
+                    "Graz’s Old Town", 
+                    "Schönbrunn Palace"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 2.5 hours daily across mostly flat terrain, including paved roads and cobblestone streets, with some hills and stairs."
+                ]
+            }
+        },
+        "noOfNights" : 10.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 2729.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1003",
+        "continent":"Europe",
+        "name" : "Jewels of Alpine Europe",
+        "imageUrl":"/assets/europe.jpg",
+        "details" : {
+            "about" : "Experience rich culture against a backdrop of soaring Alpine peaks.Journey from Switzerland’s mountain-lined Lake Lucerne to France’s inspiring Lake Annecy. Take in the picturesque Chamonix Valley and stroll along Italy’s Lake Como. Then, cross Liechtenstein and hit the winter wonderland of Innsbruck before heading to Munich, the lively capital of Bavaria.",
+            "itinerary" : {
+                     "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Zurich.",
+                        "restDaysSightSeeing":[
+                                                "Chapel Bridge", 
+                                                "Lake Annecy boat ride", 
+                                                "Chamonix, Mont Blanc", 
+                                                "Lake Como", 
+                                                "Bernina Express train ride", 
+                                                "Liechtenstein"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "11 nights in handpicked hotels", 
+                    "11 breakfasts", 
+                    "5 dinners with beer or wine", 
+                    "8 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Alpine",
+                    "Chapel Bridge", 
+                    "Lake Annecy boat ride", 
+                    "Chamonix, Mont Blanc", 
+                    "Lake Como", 
+                    "Bernina Express train ride", 
+                    "Liechtenstein", 
+                    "Nymphenburg Palace", 
+                    "The Glockenspiel"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 1 hour daily across moderately uneven terrain, including paved roads and cobblestone streets, with few hills or stairs."
+                ]
+            }
+        },
+        "noOfNights" : 11.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 2799.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1004",
+        "continent":"Europe",
+        "name" : "Highlights of Eastern Europe",
+        "imageUrl":"/assets/easteurope.jpg",
+        "details" : {
+            "about" : "Experience Eastern Europe in all its complexity. Imperial palaces, World War II sites, vibrant cafes—you can find it all in Eastern Europe. Journey along the Danube from the two-sided city of Budapest to Vienna, unrivaled for its beauty and majesty. Then, visit the castles and cathedrals of Prague and explore medieval Kraków before ending in modern Warsaw.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Budapest.",
+                        "restDaysSightSeeing":[
+                                                "Hungarian Parliament Building", 
+                                                "Szentendre", 
+                                                "Schönbrunn Palace", 
+                                                "Ringstrasse, Mikulov", 
+                                                "Prague Castle", 
+                                                "Wawel Cathedral"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "13 nights in handpicked hotels", 
+                    "13 breakfasts", 
+                    "5 dinners with beer or wine", 
+                    "6 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Matthias Church", 
+                    "Hungarian Parliament Building", 
+                    "Szentendre", 
+                    "Schönbrunn Palace", 
+                    "Ringstrasse, Mikulov", 
+                    "Prague Castle", 
+                    "Wawel Cathedral", 
+                    "Palace of Culture and Science"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you'll walk for about 2.5 hours daily across mostly flat terrain, including paved roads and cobblestone streets, with few hills or stairs."
+                ]
+            }
+        },
+        "noOfNights" : 13.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 2699.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1005",
+        "continent":"Europe",
+        "name" : "London, Paris &amp; Rome",
+        "imageUrl":"/assets/rome.jpg",
+        "details" : {
+            "about" : "Delve deep into the history and culture of three inspiring, influential cities. Perhaps no cities have influenced the world more over the last 2,000 years than London, Paris, and Rome. On this guided tour, iconic sights like Big Ben, the Eiffel Tower, and the Colosseum are just the beginning of what you'll see. Take it all in as you embark on this sweeping trip through England, France, and Italy.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to London.",
+                        "restDaysSightSeeing":[
+                                                "Trafalgar Square", 
+                                                "Buckingham Palace", 
+                                                "Eurostar train ride", 
+                                                "Place de la Concorde", 
+                                                "Eiffel Tower photo stop", 
+                                                "The Colosseum"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "9 nights in handpicked hotels", 
+                    "9 breakfasts", 
+                    "3 dinners with beer or wine", 
+                    "3 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "London",
+                    "Paris",
+                    "Rome",
+                    "Trafalgar Square", 
+                    "Buckingham Palace", 
+                    "Eurostar train ride", 
+                    "Place de la Concorde", 
+                    "Eiffel Tower photo stop", 
+                    "The Colosseum", 
+                    "The Roman Forum"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 1 hour daily across mostly flat terrain, including paved roads and cobblestone streets, with few hills or stairs."
+                ]
+            }
+        },
+        "noOfNights" : 13.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 2699.0,
+        "discount" : 0.0,
+        "availability":30
+    },
+    {
+        "destinationId" : "D1006",
+        "continent":"Australia",
+        "name" : "Grand Tour of Australia",
+        "imageUrl":"/assets/aus1.jpg",
+        "details" : {
+            "about" : "An island, a country, and a continent all in one.Experience the allure of the Land Down Under when you snorkel above the Great Barrier Reef, gaze at Uluru, and explore the Sydney Opera House. From multicultural Melbourne to the vast Outback, Australia is full of surprises for you to discover.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Cross the International Date Line in flight and lose a day.",
+                        "restDaysSightSeeing":[
+                                                "Carlton Gardens", 
+                                                "Alice Springs", 
+                                                "Royal Flying Doctor Service", 
+                                                "Uluru", 
+                                                "Great Barrier Reef", 
+                                                "Bondi Beach"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "11 nights in handpicked hotels", 
+                    "11 breakfasts", 
+                    "1 lunch", 
+                    "2 dinners with beer or wine", 
+                    "6 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Australia",
+                    "Sydney",
+                    "Melbourne",
+                    "Carlton Gardens", 
+                    "Alice Springs", 
+                    "Royal Flying Doctor Service", 
+                    "Uluru", 
+                    "Great Barrier Reef", 
+                    "Bondi Beach", 
+                    "Sydney Opera House"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 1 hour daily across mostly flat terrain, including paved roads and gravel paths, with few hills."
+                ]
+            }
+        },
+        "noOfNights" : 14.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 4549.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1007",
+        "continent":"Australia",
+        "name" : "Australia &amp; New Zealand",
+        "imageUrl":"/assets/aus2.jpg",
+        "details" : {
+            "about" : "Australia and New Zealand—a world away. From Australia's Great Barrier Reef and the rugged Outback to New Zealand's sheep-dotted plains and cliff-lined fjords, the South Pacific features a lineup of dramatic landscapes. In-between outdoor adventures, you’ll discover sophisticated, multicultural cities and an irresistible, carpe diem spirit on this tour.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Cross the International Date Line in flight and lose a day.",
+                        "restDaysSightSeeing":[
+                                                "Melbourne", 
+                                                "Uluru", 
+                                                "Great Barrier Reef", 
+                                                "Sydney Opera House", 
+                                                "Glowworm Caves", 
+                                                "Bob’s Peak", 
+                                                "Milford Sound", 
+                                                "Kiwi Wildlife Park"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "19 nights in handpicked hotels", 
+                    "19 breakfasts", 
+                    "1 lunch", 
+                    "6 dinners with beer or wine", 
+                    "13 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach", 
+                    "Flights from Melbourne to Alice Springs, Uluru Region to Great Barrier Reef Region, Great Barrier Reef Region to Sydney, Sydney to Fiordland National Park Region, Queenstown to Rotorua"
+                ],
+                "tourHighlights" : [ 
+                    "Sydney",
+                    "Australia",
+                    "New Zealand",
+                    "Melbourne", 
+                    "Uluru", 
+                    "Great Barrier Reef", 
+                    "Sydney Opera House", 
+                    "Glowworm Caves", 
+                    "Bob’s Peak", 
+                    "Milford Sound", 
+                    "Kiwi Wildlife Park", 
+                    "Kiwi home-hosted dinner", 
+                    "Auckland’s Sky Tower"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 1 hour daily across mostly flat terrain, including paved roads and gravel paths, with few hills."
+                ]
+            }
+        },
+        "noOfNights" : 22.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 6399.0,
+        "discount" : 0.0,
+        "availability":30
+    },
+    {
+        "destinationId" : "D1008",
+        "continent":"Asia",
+        "name" : "China: Beijing, the Yangtze &amp; Shanghai",
+        "imageUrl":"/assets/china.jpg",
+        "details" : {
+            "about" : "Experience China and all of its contrasts. China’s sheer size is impossible to fathom until you walk across the expanse of Tiananmen Square or gaze at the seemingly endless Great Wall. Take a leisurely cruise down the Yangtze River and ride the world’s fastest train. Discover this magnificent country, from pristine landscapes and towering cityscapes to ancient sites and modern marvels.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Beijing.",
+                        "restDaysSightSeeing":[
+                                                "Shanghai",
+                                                "Forbidden City", 
+                                                "Temple of Heaven", 
+                                                "The Great Wall", 
+                                                "Yangtze River cruise", 
+                                                "Terra-Cotta Warriors",  
+                                                "Yuyuan Garden"
+                                            ],
+                        "lastDay":"Departure: Transfer to the airport for your flight home"
+                },
+                "packageInclusions" : [ 
+                "13 nights in handpicked hotels", 
+                "4 breakfasts", 
+                "8 lunch", 
+                "6 dinners with beer or wine", 
+                "13 guided sightseeing tours", 
+                "Expert tour director &amp; local guides", 
+                "Private deluxe motor coach"
+            ],
+            "tourHighlights" : [ 
+                "China",
+                "Beijing",
+                "Yangtze",
+                "Shanghai",
+                "Forbidden City", 
+                "Temple of Heaven", 
+                "Summer Palace", 
+                "the Great Wall", 
+                "Yangtze River cruise", 
+                "Terra-Cotta Warriors", 
+                "Jade Buddha Temple", 
+                "Yuyuan Garden"
+            ],
+            "tourPace" : [ 
+                "On this guided tour, you'll walk for about 2 hours daily across moderately uneven terrain, including paved roads and unpaved trails, with some hills and stairs."
+                ]
+            } 
+        },
+        "noOfNights" : 13.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 2399.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1009",
+        "continent":"Asia",
+        "name" : "Food &amp; Wine: Uruguay, Argentina &amp; Chile",
+        "imageUrl":"/assets/wine.jpg",
+        "details" : {
+            "about" : "Toast to the South American flavors of these three unique countries.The people of Uruguay, Argentina, and Chile each offer a unique take on the art of cooking and winemaking. Learn about the traditional side of wine production at a family-run bodega outside of Montevideo. Soak in the flavors—and the views—at a sophisticated wine estate in Mendoza. Stop for a sip in the acclaimed Aconcagua Valley wine region. Whether you’re visiting a small village or an expansive market, you’ll discover how locals celebrate their country’s tasty traditions on this culinary adventure.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Beijing.",
+                        "restDaysSightSeeing":[
+                                                "Shanghai",
+                                                "Forbidden City", 
+                                                "Temple of Heaven", 
+                                                "The Great Wall", 
+                                                "Yangtze River cruise", 
+                                                "Terra-Cotta Warriors",  
+                                                "Yuyuan Garden"
+                                            ],
+                        "lastDay":"Departure: Transfer to the airport for your flight home"
+                },
+                "packageInclusions" : [ 
+                    "8 nights in handpicked hotels", 
+                    "8 breakfasts", 
+                    "4 lunch", 
+                    "3 dinners with beer or wine", 
+                    "5 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Uruguay",
+                    "Argentina",
+                    "Chile",
+                    "Mercado del Puerto", 
+                    "Canelones wine tastings", 
+                    "Mendoza wine tastings", 
+                    "Aconcagua Valley wine tasting", 
+                    "Santa Lucía Hill", 
+                    "Chilean cooking class"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 2 hours daily across mostly flat terrain, including paved roads and cobblestone streets with some hills."
+                ]
+            }
+        },
+        "noOfNights" : 8.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 3549.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1010",
+        "continent":"Asia",
+        "name" : "Singapore &amp; Malaysia: A Journey through Southeast Asia",
+        "imageUrl":"/assets/singapore.jpg",
+        "details" : {
+            "about" : "Discover the mystique of Singapore and Malaysia.Travel from bustling city streets to pristine shorelines, taking in some of Southeast Asia’s most interesting cultures along the way. Stand in awe of Singapore’s world-class amenities and futuristic innovation before retreating into nature in Borneo, where dense jungles harbor impressive animal life. Round out your trip in cosmopolitan Kuala Lumpur to see how deep-rooted traditions intersect with the present-day.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Singapore.",
+                        "restDaysSightSeeing":[
+                                                "Southeast Asia",
+                                                "Thian Hock Keng Temple", 
+                                                "Singapore Botanic Garden", 
+                                                "Bako National Park", 
+                                                "Semenggoh Wildlife Centre", 
+                                                "Satang Island"
+                                            ],
+                        "lastDay":"Departure: Transfer to the airport for your flight home"
+                },
+                "packageInclusions" : [ 
+                    "9 nights in handpicked hotels", 
+                    "9 breakfasts", 
+                    "4 lunch", 
+                    "3 dinners with beer or wine", 
+                    "5 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Singapore",
+                    "Malaysia",
+                    "Southeast Asia",
+                    "Thian Hock Keng Temple", 
+                    "Singapore Botanic Garden", 
+                    "Bako National Park", 
+                    "Semenggoh Wildlife Centre", 
+                    "Satang Island", 
+                    "Malacca River cruise", 
+                    "Petronas Towers"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 2.5 hours daily across moderately uneven terrain, including paved roads and unpaved paths, with some hills and stairs."
+                ]
+            }
+        },
+        "noOfNights" : 9.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 2649.0,
+        "discount" : 0.0,
+        "availability":30
+    }, 
+    {
+        "destinationId" : "D1011",
+        "continent":"Asia",
+        "name" : "Highlights of Japan: Tokyo to Kyoto",
+        "imageUrl":"/assets/tokyo.jpg",
+        "details" : {
+            "about" : "Discover how centuries-old traditions coexist with cutting-edge culture.The traditional Japanese tea ceremony is the embodiment of Japanese hospitality, representing harmony, respect, purity, and tranquility. You’ll experience this Zen aesthetic every day of your Japanese tour—and not only while drinking tea. Uncover ancient temples alongside futuristic cityscapes and witness how Japan’s art, architecture, and day-to-day culture continue to reflect its time-honored philosophies.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Tokyo.",
+                        "restDaysSightSeeing":[
+                                                "Kyoto",
+                                                "Meiji Shrine, Mount Fuji", 
+                                                "Lake Ashi", 
+                                                "Hakone Open-Air Museum", 
+                                                "high-speed bullet train ride", 
+                                                "Golden Pavilion"
+                                            ],
+                        "lastDay":"Departure: Transfer to the airport for your flight home"
+                },
+                "packageInclusions" : [ 
+                    "8 nights in handpicked hotels", 
+                    "8 breakfasts", 
+                    "4 lunch", 
+                    "3 dinners with beer or wine", 
+                    "5 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Japan",
+                    "Tokyo",
+                    "Kyoto",
+                    "Meiji Shrine, Mount Fuji", 
+                    "Lake Ashi", 
+                    "Hakone Open-Air Museum", 
+                    "High-speed bullet train ride", 
+                    "Golden Pavilion", 
+                    "Fushimi Inari complex", 
+                    "Nara", 
+                    "Osaka Castle"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you'll walk for about 2.5 hours daily across mostly flat terrain, including paved roads and gravel paths, with few hills. You may need to climb stairs when visiting temples."
+                ]
+            }
+        },
+        "noOfNights" : 8.0,
+        "flightCharges":500,
+        "chargesPerPerson" : 3349.0,
+        "discount" : 0.0,
+        "availability":30
+    }
+]
+&nbsp;
+let hotDeals = [
+    {
+        "destinationId" : "HD1001",
+        "continent":"Asia",
+        "name" : "Thailand : The Golden Kingdom",
+        "imageUrl":"/assets/Thailand.jpg",
+        "details" : {
+            "about" : "Experience the warm welcome of the Land of Smiles.From bustling Bangkok, you’ll travel north to ancient ruined capitals, local villages, and mountaintop temples to investigate all sides of this vibrant country of contrasts. The spice and rice will nourish your body; the scenery and history will nourish your soul.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Travel day: Board your overnight flight to Thailand.",
+                        "restDaysSightSeeing":[
+                                                "Temple of the Golden Buddha", 
+                                                "Damnoen Saduak Floating Market", 
+                                                "Ayutthaya Ruins", 
+                                                "Sukhothai Historical Park", 
+                                                "Wat Rong Khun"
+                                            ],
+                        "lastDay":"Departure: Transfer to the airport for your flight home"
+                },
+                "packageInclusions" : [ 
+                    "11 nights in handpicked hotels", 
+                    "12 breakfasts", 
+                    "4 lunches", 
+                    "4 dinners with beer or wine", 
+                    "8 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Grand Palace", 
+                    "Temple of the Golden Buddha", 
+                    "Damnoen Saduak Floating Market", 
+                    "Ayutthaya Ruins", 
+                    "Sukhothai Historical Park", 
+                    "Wat Rong Khun", 
+                    "Elephant Nature Park"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you'll walk for about 1 hour daily across uneven terrain with some hills."
+                ]
+            }
+        },
+        "noOfNights" : 11.0,
+        "flightCharges":400,
+        "chargesPerPerson" : 2249.0,
+        "discount" : 5.0,
+        "availability" : 15.0
+    },
+&nbsp;
+    {
+        "destinationId" : "HD1002",
+        "continent":"Australia",
+        "name" : "Australia &amp; New Zealand",
+        "imageUrl":"/assets/aus3.jpg",
+        "details" : {
+            "about" : "Australia and New Zealand—a world away.From Australia's Great Barrier Reef and the rugged Outback to New Zealand's sheep-dotted plains and cliff-lined fjords, the South Pacific features a lineup of dramatic landscapes. In-between outdoor adventures, you’ll discover sophisticated, multicultural cities and an irresistible, carpe diem spirit on this tour.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Cross the International Date Line in flight and lose a day.",
+                        "restDaysSightSeeing":[
+                                                "Melbourne", 
+                                                "Uluru", 
+                                                "Great Barrier Reef", 
+                                                "Sydney Opera House", 
+                                                "Glowworm Caves", 
+                                                "Bob’s Peak", 
+                                                "Milford Sound", 
+                                                "Kiwi Wildlife Park"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "19 nights in handpicked hotels", 
+                    "20 breakfasts", 
+                    "1 lunch", 
+                    "6 dinners with beer or wine", 
+                    "13 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach", 
+                    "Flights from Melbourne to Alice Springs, Uluru Region to Great Barrier Reef Region, Great Barrier Reef Region to Sydney, Sydney to Fiordland National Park Region, Queenstown to Rotorua"
+                ],
+                "tourHighlights" : [ 
+                    "Melbourne", 
+                    "Uluru", 
+                    "Great Barrier Reef", 
+                    "Sydney Opera House", 
+                    "Glowworm Caves", 
+                    "Bob’s Peak", 
+                    "Milford Sound", 
+                    "Kiwi Wildlife Park", 
+                    "Kiwi home-hosted dinner", 
+                    "Auckland’s Sky Tower"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you’ll walk for about 1 hour daily across mostly flat terrain, including paved roads and gravel paths, with few hills."
+                ]
+            }
+        },
+        "noOfNights" : 19.0,
+        "flightCharges":400,
+        "chargesPerPerson" : 6399.0,
+        "discount" : 5.0,
+        "availability" : 15.0
+    },
+&nbsp;
+    {
+        "destinationId" : "HD1003",
+        "continent":"Europe",
+        "name" : "Budapest, Vienna &amp; Prague",
+        "imageUrl":"/assets/prague.jpg",
+        "details" : {
+            "about" : "Spire-studded skylines and fascinating histories are just the beginning.Dotted with hilltop castles, ornate cathedrals, and imperial palaces, Vienna, Budapest, and Prague will captivate you. Spend a few days getting to know each of these dynamic cities­—you’ll discover their vivid World War II history, radical art movements, and unique local cultures.",
+            "itinerary" : {
+                "dayWiseDetails":{
+                        "firstDay":"Board your overnight flight to Budapest.",
+                        "restDaysSightSeeing":[
+                                                "Matthias Church", 
+                                                "Danube River", 
+                                                "Szentendre", 
+                                                "Schönbrunn Palace", 
+                                                "Ringstrasse"
+                                            ],
+                        "lastDay":"Departure:Transfer to the airport for your flight home."
+                },
+                "packageInclusions" : [ 
+                    "9 nights in handpicked hotels", 
+                    "10 breakfasts", 
+                    "3 dinners with beer or wine", 
+                    "3 guided sightseeing tours", 
+                    "Expert tour director &amp; local guides", 
+                    "Private deluxe motor coach"
+                ],
+                "tourHighlights" : [ 
+                    "Hungarian Parliament Building", 
+                    "Matthias Church", 
+                    "Danube River", 
+                    "Szentendre", 
+                    "Schönbrunn Palace", 
+                    "Ringstrasse", 
+                    "Prague Castle, St. Vitus Cathedral"
+                ],
+                "tourPace" : [ 
+                    "On this guided tour, you'll walk for about 3 hours daily across mostly flat terrain with some cobblestone streets, hills, and stairs."
+                ]
+            }
+        },
+        "noOfNights" : 9,
+        "flightCharges":400,
+        "chargesPerPerson" : 2049.0,
+        "discount" : 5.0,
+        "availability" : 15.0
+    }
+&nbsp;
+]
+&nbsp;
+&nbsp;
+&nbsp;
+exports.userSetup = () =&gt; {
+<span class="cstat-no" title="statement not covered" >    return conn.getUserCollection().then((userCollection) =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >        return userCollection.deleteMany().then(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >            return userCollection.insertMany(userData).then(() =&gt; {</span>
+<span class="cstat-no" title="statement not covered" >                return conn.getBookingsCollection().then(bookingsCollection=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                    return bookingsCollection.deleteMany().then(()=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                        return bookingsCollection.insertMany(bookingData).then(()=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                            return conn.getDestinationsCollection().then(destCollection=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                                return destCollection.deleteMany().then(()=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                                    return destCollection.insertMany(destinations).then(()=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                                        return conn.getHotdealsCollection().then(hotDealsCollection=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                                            return hotDealsCollection.deleteMany().then(()=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                                                return hotDealsCollection.insertMany(hotDeals).then(result=&gt;{</span>
+<span class="cstat-no" title="statement not covered" >                                                    if(result) <span class="cstat-no" title="statement not covered" >return "Insertion Successful";</span></span>
+                                                    else <span class="cstat-no" title="statement not covered" >throw new Error("Insertion Failed");</span>
+                                                })
+                                            })
+                                        })
+                                    })
+                                })
+                            })
+                        })
+                    })
+                })
+            })
+        })
+&nbsp;
+    })
+}</pre></td></tr>
+</table></pre>
+<div class='push'></div><!-- for sticky footer -->
+</div><!-- /wrapper -->
+<div class='footer quiet pad2 space-top1 center small'>
+  Code coverage
+<<<<<<< HEAD
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Mar 22 2019 10:02:18 GMT+0530 (India Standard Time)
+=======
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Mar 22 2019 10:01:40 GMT+0530 (India Standard Time)
+>>>>>>> ea3d1c7e597841935a5a1e6654c84517e3777206
+</div>
+</div>
+<script src="../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../sorter.js"></script>
+</body>
+</html>

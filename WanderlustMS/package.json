@@ -1,0 +1,27 @@
+{
+  "name": "wanderlustms",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "jasmine"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "dotenv": "^7.0.0",
+    "express": "~4.16.0",
+    "gulp": "^4.0.0",
+    "mongoose": "^5.4.17"
+  },
+  "devDependencies": {
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2",
+    "eslint": "^5.15.3",
+    "gulp-eslint": "^5.0.0",
+    "gulp-exit": "0.0.2",
+    "gulp-istanbul": "^1.1.3",
+    "gulp-jasmine": "^4.0.0",
+    "jasmine-reporters": "^2.3.2"
+  }
+}

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites disabled="0" errors="0" failures="0" tests="18" time="0.028">
+ <testsuite name="Name validation suite:" timestamp="2019-03-28T10:24:49" hostname="localhost" time="0.011" errors="0" tests="3" skipped="0" disabled="0" failures="0">
+  <testcase classname="Name validation suite:" name="Test Case 2: names are incorrect" time="0.004" />
+  <testcase classname="Name validation suite:" name="Test Case 1: names are correct" time="0" />
+  <testcase classname="Name validation suite:" name="Test Case 3: names are incorrect" time="0" />
+ </testsuite>
+ <testsuite name="Email validation suite:" timestamp="2019-03-28T10:24:49" hostname="localhost" time="0.002" errors="0" tests="2" skipped="0" disabled="0" failures="0">
+  <testcase classname="Email validation suite:" name="Test Case 4: email Id is correct" time="0" />
+  <testcase classname="Email validation suite:" name="Test Case 5: email Id incorrect" time="0.001" />
+ </testsuite>
+ <testsuite name="Password validation suite:" timestamp="2019-03-28T10:24:49" hostname="localhost" time="0.005" errors="0" tests="3" skipped="0" disabled="0" failures="0">
+  <testcase classname="Password validation suite:" name="Test Case 11: Password is incorrect" time="0" />
+  <testcase classname="Password validation suite:" name="Test Case 10: Password is incorrect" time="0.001" />
+  <testcase classname="Password validation suite:" name="Test Case 9: Password is correct" time="0.002" />
+ </testsuite>
+ <testsuite name="ContactNo validation suite:" timestamp="2019-03-28T10:24:49" hostname="localhost" time="0.002" errors="0" tests="3" skipped="0" disabled="0" failures="0">
+  <testcase classname="ContactNo validation suite:" name="Test Case 6: ContactNo is correct" time="0" />
+  <testcase classname="ContactNo validation suite:" name="Test Case 7: ContactNo incorrect" time="0.001" />
+  <testcase classname="ContactNo validation suite:" name="Test Case 8: ContactNo incorrect" time="0.001" />
+ </testsuite>
+ <testsuite name="NoofTravellers validation suite:" timestamp="2019-03-28T10:24:49" hostname="localhost" time="0.005" errors="0" tests="4" skipped="0" disabled="0" failures="0">
+  <testcase classname="NoofTravellers validation suite:" name="Test Case 2: Valid NoofTravellers" time="0" />
+  <testcase classname="NoofTravellers validation suite:" name="Test Case 1: valid NoofTravellers" time="0" />
+  <testcase classname="NoofTravellers validation suite:" name="Test Case 3: Invalid NoofTravellers" time="0.001" />
+  <testcase classname="NoofTravellers validation suite:" name="Test Case 4: Invalid NoofTravellers" time="0" />
+ </testsuite>
+ <testsuite name="Trip Date validation suite:" timestamp="2019-03-28T10:24:49" hostname="localhost" time="0.003" errors="0" tests="3" skipped="0" disabled="0" failures="0">
+  <testcase classname="Trip Date validation suite:" name="Test Case 5: valid Tripdate" time="0" />
+  <testcase classname="Trip Date validation suite:" name="Test Case 7: Invalid NoofTravellers" time="0.001" />
+  <testcase classname="Trip Date validation suite:" name="Test Case 6: Invalid NoofTravellers" time="0" />
+ </testsuite>
+</testsuites>
